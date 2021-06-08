@@ -20,7 +20,6 @@ class Barang extends CI_Controller
 
 	public function form_create()
 	{
-		$data_view = array('titel' -> 'Form Data Barang Baru');
 		$konten = $this->load->view('barang/form_barang', $data_view, true);
 		$data_json = array(
 			'konten' => $konten,
