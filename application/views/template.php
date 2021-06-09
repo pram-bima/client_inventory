@@ -238,6 +238,7 @@
     <script src="<?= base_url('assets/xtreme_admin_lite/') ?>js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="<?= base_url('assets/xtreme_admin_lite/') ?>js/custom.js"></script>
+
     <script type="text/javascript">
         function loadMenu(url) {
             $.ajax(url, {
@@ -250,7 +251,7 @@
                     $('.page-breadcrumb .page-title').html(objData.titel);
                 },
                 error: function (jqXHR, textStatus, errorMsg) {
-                    alert('Error: '+errorMsg);
+                    alert('Error: ' + errorMsg);
                 }
             })
         }

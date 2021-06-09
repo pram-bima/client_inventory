@@ -3,8 +3,8 @@
 		<div class="card">
 			<div class="card-body">
 
-				<a href="#" onclick="loadmenu('<?=base_url('barang/form_create')?>')" class="btn btn-primary">Tambah Data Barang</a>
-				<hr>
+				<a href="#" onclick="loadMenu('<?=base_url('barang/form_create')?>')" class="btn btn-primary">Tambah Data Barang</a>
+				<hr/>
 
 				<h4>Dibawah Ini Adalah Data Barang</h4>
 				<table id="tabel_barang" class="table">

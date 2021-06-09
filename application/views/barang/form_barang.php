@@ -16,8 +16,10 @@
 							<textarea rows="5" class="form-control form-control-line form-user-input" name="deskripsi" id="deskripsi" placeholder="Ceritakan Barang"></textarea>
 						</div>
 					</div>
+
 					<div class="form-group">
 						<div class="col-sm-12">
+							<input class="form-user-input" type="hidden" name="id_barang" id="id_barang" value="">
 							<input class="form-user-input" type="hidden" name="stok" id="stok" value="0">
 							<button class="btn btn-success" type="submit">Simpan Data Barang</button>
 						</div>
@@ -28,3 +30,36 @@
 		</div>
 	</div>
 </div>
+
+
+<script>
+	
+	$('#formBarang').on('submit', function (e) {
+		e.preventDefault();
+		sendDataPost();
+	});
+
+	function sendDataPost() {
+		var link = 'http://localhost/backend_inventory/barang/create_action';
+
+		var dataForm = {};
+		var allInput = $('.form-user-input');
+
+		$.each(allInput, function (i, val) {
+			dataForm[val['name']] = val['value'];
+		});
+
+		$.ajax(link, {
+			type: 'POST',
+			data: dataForm,
+			success: function (data, status, xhr) {
+				var data_str = JSON.parse(data);
+				alert(data_str['pesan']);
+				loadMenu('<?= base_url('barang')?>');
+			},
+			error: function (jqXHR, textStatus, errorMsg) {
+				alert('Error : ' + errorMsg);
+			}
+		});
+	}
+</script>
