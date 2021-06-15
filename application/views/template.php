@@ -174,6 +174,15 @@
             <!-- ============================================================== -->
             <!-- Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
+            <div class="page-breadcrumb">
+                <div class="row align-items-center">
+                    <div class="col-5">
+                        <h4 class="page-title">Starter Page</h4>
+                        
+                    </div>
+                    
+                </div>
+            </div>
             <!-- ============================================================== -->
             <!-- End Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
@@ -248,7 +257,7 @@
 
                     $('#kontenTemplate').html(objData.konten);
                     $('title').html(objData.titel);
-                    $('.page-breadcrumb .page-title').html(objData.titel);
+                    $('.page-breadcrumb .page-title').html(objData.title);
                 },
                 error: function (jqXHR, textStatus, errorMsg) {
                     alert('Error: ' + errorMsg);
