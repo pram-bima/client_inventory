@@ -1,3 +1,44 @@
+<style type="text/css">
+	.upload-area {
+		width: 70%;
+		height: 350px;
+		border: 2px solid lightgray;
+		border-radius: 3px;
+		margin: 0 auto;
+		text-align: center;
+		overflow: auto;
+	}
+
+	.upload-area:hover {
+		cursor: pointer;
+	}
+
+	.upload-area h2 {
+		text-align: center;
+		font-weight: normal;
+		font-family: sans-serif;
+		line-height: 50px;
+		color: darkslategray;
+	}
+
+	#file {
+		display: none;
+	}
+
+	/* Thumbnail */
+	.thumbnail {
+		width: 80px;
+		height: 80px;
+		padding: 2px;
+		border: 2px solid lightgray;
+		border-radius: 3px;
+		float: left;
+	}
+
+	.size {
+		font-size: 12px;
+	}
+</style>
 <div class="row">
 	<div class="col-12">
 		<div class="card">
@@ -18,6 +59,19 @@
 					</div>
 
 					<div class="form-group">
+						<label class="col-md-12">Upload Foto</label>
+						<div class="col-md-12">
+							<input type="file" name="file" id="file">
+
+							<!-- Drag and Drop Container -->
+
+							<div class="upload-area" id="uploadfile">
+								<h2>Drag and Drop file here<br> or <br>Click to select file</h2>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
 						<div class="col-sm-12">
 							<input class="form-user-input" type="hidden" name="id_barang" id="id_barang" value="">
 							<input class="form-user-input" type="hidden" name="stok" id="stok" value="0">
@@ -33,6 +87,49 @@
 
 
 <script>
+
+	$("html").on("drop", function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+	});
+
+	$("html").on("dragover", function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		$(".upload-area > h2").text("Drag here");
+	});
+
+	$('.upload-area').on('dragenter', function(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		$(".upload-area > h2").text("Drop");
+	});
+
+	$('.upload-area').on('dragover', function(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		$(".upload-area > h2").text("Drop !!");
+	});
+
+	$(".upload-area").on("drop", function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+
+		var file = e.originalEvent.dataTransfer.files;
+		$("#file")[0].files = file;
+		console.log(file);
+		$(".upload-area > h2").text("File yang dipilih: "+file[0].name);
+	});
+
+	$(".upload-area").click(function() {
+		$("#file").click();
+	});
+
+	$("#file").change(function() {
+		var file = $("#file")[0].files[0];
+		console.log(file);
+		$(".upload-area > h2").text("File yang dipilih :"+file.name);
+	});
 	
 	$('#formBarang').on('submit', function (e) {
 		e.preventDefault();
@@ -48,18 +145,23 @@
 			}
 		?>
 
-		var dataForm = {};
+		var dataForm = new FormData();
 		var allInput = $('.form-user-input');
 
 		$.each(allInput, function (i, val) {
-			dataForm[val['name']] = val['value'];
+			dataForm.append(val['name'], val['value']);
 		});
+
+		var file = $('#file')[0].files[0];
+		dataForm.append('file', file);
 
 		$.ajax(link, {
 			type: 'POST',
 			data: dataForm,
+			contentType: false,
+			processData: false,
+			dataType: 'json',
 			success: function (data, status, xhr) {
-				var data_str = JSON.parse(data);
 				alert(data_str['pesan']);
 				loadMenu('<?= base_url('barang')?>');
 			},
