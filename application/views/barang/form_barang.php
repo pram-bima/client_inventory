@@ -88,54 +88,6 @@
 
 <script>
 
-	$("html").on("drop", function(e) {
-		e.preventDefault();
-		e.stopPropagation();
-	});
-
-	$("html").on("dragover", function(e) {
-		e.preventDefault();
-		e.stopPropagation();
-		$(".upload-area > h2").text("Drag here");
-	});
-
-	$('.upload-area').on('dragenter', function(e) {
-		e.stopPropagation();
-		e.preventDefault();
-		$(".upload-area > h2").text("Drop");
-	});
-
-	$('.upload-area').on('dragover', function(e) {
-		e.stopPropagation();
-		e.preventDefault();
-		$(".upload-area > h2").text("Drop !!");
-	});
-
-	$(".upload-area").on("drop", function(e) {
-		e.preventDefault();
-		e.stopPropagation();
-
-		var file = e.originalEvent.dataTransfer.files;
-		$("#file")[0].files = file;
-		console.log(file);
-		$(".upload-area > h2").text("File yang dipilih: "+file[0].name);
-	});
-
-	$(".upload-area").click(function() {
-		$("#file").click();
-	});
-
-	$("#file").change(function() {
-		var file = $("#file")[0].files[0];
-		console.log(file);
-		$(".upload-area > h2").text("File yang dipilih :"+file.name);
-	});
-	
-	$('#formBarang').on('submit', function (e) {
-		e.preventDefault();
-		sendDataPost();
-	});
-
 	function sendDataPost() {
 		<?php
 			if ($titel == 'Form Edit Data Barang') {
@@ -200,4 +152,57 @@
 			echo 'getDetail('.$id_barang.');';
 		}
 	?>
+
+	$('#formBarang').on('submit', function (e) {
+		e.preventDefault();
+		sendDataPost();
+	});
+	
+	<!-- Agar browser tidak membuka file yang didrop -->
+	$("html").on("drop", function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+	});
+
+	<!-- Untuk merubah text pada field menjadi Drag here -->
+	$("html").on("dragover", function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		$(".upload-area > h2").text("Drag here");
+	});
+
+	<!-- Untuk merubah text pada field menjadi Drop -->
+	$('.upload-area').on('dragenter', function(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		$(".upload-area > h2").text("Drop");
+	});
+
+	$('.upload-area').on('dragover', function(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		$(".upload-area > h2").text("Drop !!");
+	});
+
+	<!-- Untuk menampilkan nama file gambar yang dilampirkan -->
+	$(".upload-area").on("drop", function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+
+		var file = e.originalEvent.dataTransfer.files;
+		$("#file")[0].files = file;
+		console.log(file);
+		$(".upload-area > h2").text("File yang dipilih: "+file[0].name);
+	});
+
+	<!-- Untuk menampilkan file browser ketika diklik -->
+	$(".upload-area").click(function() {
+		$("#file").click();
+	});
+
+	$("#file").change(function() {
+		var file = $("#file")[0].files[0];
+		console.log(file);
+		$(".upload-area > h2").text("File yang dipilih :"+file.name);
+	});
 </script>
