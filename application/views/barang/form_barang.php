@@ -114,7 +114,7 @@
 			processData: false,
 			dataType: 'json',
 			success: function (data, status, xhr) {
-				alert(data_str['pesan']);
+				alert(data['pesan']);
 				loadMenu('<?= base_url('barang')?>');
 			},
 			error: function (jqXHR, textStatus, errorMsg) {
